@@ -1,0 +1,32 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Admin Bar Experiment",
+		"description": "Inert WordPress logo, admin menu overlay in the block editors, Help menu, and footer About link.",
+		"author": "jameskoster"
+	},
+	"landingPage": "/wp-admin/post-new.php",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/jameskoster/admin-bar-experiment",
+				"ref": "HEAD",
+				"refType": "refname"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php'; update_user_meta( 1, $wpdb->prefix . 'persisted_preferences', array( 'core/edit-post' => array( 'welcomeGuide' => false ), 'core/edit-site' => array( 'welcomeGuide' => false ), '_modified' => gmdate( 'c' ) ) );"
+		}
+	]
+}

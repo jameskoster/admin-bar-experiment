@@ -1,0 +1,117 @@
+/* ---------------------------------------------------------------------------
+ * WordPress logo
+ * ------------------------------------------------------------------------- */
+
+/*
+ * Inert logo: never react to the pointer. Disabling pointer events (rather than
+ * overriding hover colours) stays correct across every admin colour scheme.
+ */
+#wpadminbar #wp-admin-bar-wp-logo.abx-inert {
+	pointer-events: none;
+	cursor: default;
+}
+
+#wpadminbar #wp-admin-bar-wp-logo.abx-nav-trigger > .ab-item {
+	cursor: pointer;
+}
+
+#wpadminbar #wp-admin-bar-wp-logo.abx-nav-trigger.abx-is-open > .ab-item {
+	background: #2c3338;
+	color: #72aee6;
+}
+
+#wpadminbar #wp-admin-bar-wp-logo.abx-nav-trigger.abx-is-open > .ab-item .ab-icon:before {
+	color: #72aee6;
+}
+
+/* ---------------------------------------------------------------------------
+ * Help menu
+ * ------------------------------------------------------------------------- */
+
+#wpadminbar #wp-admin-bar-abx-help > .ab-item {
+	padding: 0 7px;
+}
+
+#wpadminbar #wp-admin-bar-abx-help > .ab-item .ab-icon {
+	margin-right: 0;
+}
+
+#wpadminbar #wp-admin-bar-abx-help > .ab-item .ab-icon:before {
+	content: "\f223";
+	content: "\f223" / '';
+	top: 2px;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar li#wp-admin-bar-abx-help {
+		display: block;
+		position: static;
+	}
+
+	#wpadminbar #wp-admin-bar-abx-help > .ab-item {
+		padding: 0;
+	}
+
+	#wpadminbar #wp-admin-bar-abx-help > .ab-item .ab-icon {
+		padding: 0;
+		width: 52px;
+		height: 46px;
+		text-align: center;
+		vertical-align: top;
+	}
+
+	#wpadminbar #wp-admin-bar-abx-help > .ab-item .ab-icon:before {
+		font: 28px/1 dashicons !important;
+		top: -3px;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+ * Admin menu overlay (block editors, fullscreen mode, desktop widths)
+ * ------------------------------------------------------------------------- */
+
+@media (min-width: 782px) {
+	html body.js.abx-editor.is-fullscreen-mode #adminmenumain {
+		display: block;
+		position: fixed;
+		top: var(--wp-admin--admin-bar--height, 32px);
+		bottom: 0;
+		left: 0;
+		width: 160px;
+		z-index: 99998;
+		background: #1d2327;
+		box-shadow: 0 0 0 transparent;
+		visibility: hidden;
+		transform: translateX(-100%);
+		transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, visibility 0s linear 0.16s;
+	}
+
+	html body.js.abx-editor.is-fullscreen-mode.abx-nav-open #adminmenumain {
+		visibility: visible;
+		transform: none;
+		box-shadow: 0 0 24px rgba(0, 0, 0, 0.25);
+		transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, visibility 0s;
+	}
+
+	html body.js.abx-editor.is-fullscreen-mode #adminmenuback {
+		position: absolute;
+		inset: 0;
+	}
+
+	html body.js.abx-editor.is-fullscreen-mode #adminmenuwrap {
+		position: relative;
+		top: auto;
+	}
+
+	/* Folding makes no sense inside a transient overlay. */
+	html body.js.abx-editor.is-fullscreen-mode #adminmenu #collapse-menu {
+		display: none;
+	}
+}
+
+@media (min-width: 782px) and (prefers-reduced-motion: reduce) {
+	html body.js.abx-editor.is-fullscreen-mode #adminmenumain,
+	html body.js.abx-editor.is-fullscreen-mode.abx-nav-open #adminmenumain {
+		transition: none;
+	}
+}
